@@ -1,0 +1,3 @@
+import MyFramework
+
+MyClass.log()
