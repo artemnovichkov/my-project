@@ -16,8 +16,8 @@ export XCODE_XCCONFIG_FILE="$xcconfig"
 mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
 
 # Next, work out if we're in SIMULATOR or DEVICE
-xcodebuild -project "${PROJECT_NAME}.xcodeproj" -target "${FRAMEWORK_NAME}" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build
-xcodebuild -project "${PROJECT_NAME}.xcodeproj" -target "${FRAMEWORK_NAME}" -configuration ${CONFIGURATION} -sdk iphoneos ONLY_ACTIVE_ARCH=NO BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build
+xcodebuild -project "${PROJECT_NAME}.xcodeproj" -scheme "${FRAMEWORK_NAME}" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build
+xcodebuild -project "${PROJECT_NAME}.xcodeproj" -scheme "${FRAMEWORK_NAME}" -configuration ${CONFIGURATION} -sdk iphoneos ONLY_ACTIVE_ARCH=NO BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build
 
 # Step 2. Copy the framework structure (from iphoneos build) to the universal folder
 cp -R "${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
