@@ -73,7 +73,8 @@
 			children = (
 				06D62A4B1FB959E1009EEE25 /* MyFramework.framework */,
 			);
-			path = Frameworks;
+			name = Frameworks;
+			path = MyProject/Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
