@@ -1,3 +1,4 @@
+PROJECT_ROOT_FOLDER="$(dirname $SRCROOT)"
 UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal
 FRAMEWORK_NAME="MyFramework"
 
@@ -16,7 +17,7 @@ mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
 
 # Next, work out if we're in SIM or DEVICE
 xcodebuild -project "${PROJECT_NAME}.xcodeproj" -target "${FRAMEWORK_NAME}" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build
-xcodebuild -project "${PROJECT_NAME}.xcodeproj" -target "${FRAMEWORK_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build
+xcodebuild -project "${PROJECT_NAME}.xcodeproj" -target "${FRAMEWORK_NAME}" -configuration ${CONFIGURATION} -sdk iphoneos ONLY_ACTIVE_ARCH=NO BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build
 
 # Step 2. Copy the framework structure (from iphoneos build) to the universal folder
 cp -R "${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
@@ -27,5 +28,6 @@ cp -R "${SYMROOT}/Debug-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FR
 # Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory
 lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}" "${SYMROOT}/Debug-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}" "${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}"
 
+export
 # Step 5. Convenience step to copy the framework to the main project's directory
-cp -a "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework" "$PWD/MyProject/Frameworks/${FRAMEWORK_NAME}.framework"
+cp -a "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework" "${PROJECT_ROOT_FOLDER}/MyProject/MyProject/Frameworks/${FRAMEWORK_NAME}.framework"

@@ -19,6 +19,15 @@ Current structure:
 ## 🤔 Current issues
 
 - Manual configuration of new projects for this scheme
-- Playgrounds don't work with static frameworks. So after `MyFramework-Universal` target running you should clean the Build folder.
+- Playgrounds don't work with static frameworks:
+
+```bash
+Playground execution failed:
+
+error: Couldn't lookup symbols:
+  __T011MyFramework0A5ClassCMa
+  __T011MyFramework0A5ClassC3logyyFZ
+```
+So after `MyFramework-Universal` target running you should clean the Build folder.
+
 - You must run `MyFramework-Universal` target manually after every change in the framework.
-- Workspace has one DerivedData folder for all projects. After main project cleaning all frameworks data will be deleted.
