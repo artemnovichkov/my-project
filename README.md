@@ -43,3 +43,18 @@ So after `MyFramework-Universal` target running you should clean the Build folde
 ```bash
 error: accessing build database ".../Build/Intermediates.noindex/XCBuildData/build.db": disk I/O error
 ```
+- Framework linking graph is not obvious. You can miss something and increase app size with static framework duplication. It would be great if some tool prints dependency graph with linking type:
+My Project
+```
+- MyFramework(static)
+-- MyFramework2(dynamic)
+- MyFramework2(dynamic)
+```
+or
+```
+- MyFramework(static)
+-- MyFramework2(static) 
+- MyFramework2(static)
+Warnings:
+⁉️ MyFramework2 is static but used twice
+```
